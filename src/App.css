@@ -36,3 +36,90 @@
     transform: rotate(360deg);
   }
 }
+.moviesContainer{
+  display: flex;
+  justify-content:flex-start  ;
+}
+.movieCard{
+  width: 30%;
+  min-width: 280px;
+  min-height: 200px;
+}
+.form{
+  display:flex;
+  flex-direction:column;
+  width: 50%;
+  max-width: 300px;
+  margin: auto;
+  height: 50%;
+  
+}
+.form_container{
+  height: 90vh;
+  display: flex;
+  align-items: center;
+}
+.inputContainer{
+  display: flex;
+  justify-content: space-between;
+  width:700px;
+  max-width: 100%;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+.inputContainer>label{
+  font-size: small;
+}
+
+.autocomplete{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  width: 20%;
+  top: 50px;
+  min-height: 200px;
+  z-index: 100;
+  background: #f3ebeb;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0,3);
+}
+.autocompleteitems{
+  border-bottom: 1px solid grey;
+  padding:3px 3px;
+  cursor: pointer;
+  color: blue;
+  font-weight: bold;
+  width: 90%;
+}
+.autocompleteitems:hover{
+  background-color: #ffff;
+}
+
+.profileCardFieldContainer>div{
+  display: flex;
+  justify-content:flex-start;
+  font-weight: bold;
+}
+.profileCardFieldContainer>div>span,label,input{
+  margin-left: 10px;
+  margin-bottom: 10px;
+  
+}
+.popUp{
+  width: 400px;
+  max-width: 100%;
+  background-color: #ffff;
+  height: 200px;
+  margin: 20% auto;
+  padding: 10px;
+  position: relative;
+  display: flex ;
+  justify-content: center;
+  align-items: center;
+}
+.popUp>div{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
