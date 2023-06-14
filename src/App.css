@@ -123,3 +123,12 @@
   right: 10px;
   top: 10px;
 }
+.errorSpan{
+  display:none;
+ 
+}
+.inputContainer>input:invalid[focused="true"]~.errorSpan{
+  display: block;
+  font-size: smaller;
+  
+}

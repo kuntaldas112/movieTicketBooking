@@ -20,6 +20,8 @@ function AddMovie() {
          name:"movieName",
          placeholder:"Movie name",
          label:"Movie name",
+         required:true,
+         errorMessage:"Please enter movie name!"
         },
         {
          id:2,
@@ -27,13 +29,17 @@ function AddMovie() {
          name:"theatreName",
          placeholder:"Theatre name",
          label:"Theatre name",
+         errorMessage:"Please enter theatre name!",
+         required:true
         },
         {
          id:3,
          type:"number" ,
          name:"noOfTicketsAvailable",
          placeholder:"Ticket Count",
-         label:"Ticket Count"
+         label:"Ticket Count",
+         errorMessage:"Please enter ticket count!",
+         required:true
         },
         {
          id:4,
@@ -53,7 +59,7 @@ function AddMovie() {
                                         method:"POST",
                                         headers: {
                                             "Content-Type": "application/json",
-                                            "Authorization":`Bearer ${JSON.parse(localStorage.getItem('userInfo')).accessToken}`,
+                                            "Authorization":`Bearer ${JSON.parse(localStorage.getItem('userInfo'))?.accessToken}`,
                                         },
                                         body:JSON.stringify({...movieObj})
 

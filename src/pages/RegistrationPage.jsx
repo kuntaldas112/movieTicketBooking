@@ -10,14 +10,14 @@ function RegistrationPage() {
         "firstName": "",
         "lastName": "",
         "email": "",
-        "contactNumber": 0,
+        "contactNumber": "",
         "roles": [],
         "password": ""
     })
     const submitHandler = (e) => {
         e.preventDefault();
 
-        let roles = regObj['roles'].split(",")
+        let roles = regObj['roles'].split(" ")
         regObj['roles'] = [...roles]
 
         fetch(`http://localhost:8081/api/v1.0/moviebooking/register`, {
@@ -35,7 +35,7 @@ function RegistrationPage() {
             "firstName": "",
             "lastName": "",
             "email": "",
-            "contactNumber": 0,
+            "contactNumber": "",
             "roles": [],
             "password": ""
         });
@@ -50,14 +50,20 @@ function RegistrationPage() {
             name: "loginId",
             placeholder: "loginId",
             label: "Username",
-            autoFocus: true
+            autoFocus: true,
+            errorMessage:"Only alphabet and numeric values are allowed",
+            pattern:"^[A-Za-z][A-Za-z0-9_]*$",
+            required:true,
         },
         {
             id: 2,
             type: "text",
             name: "firstName",
             placeholder: "First Name",
-            label: "first name",
+            label: "First Name",
+            required:true,
+            errorMessage:"This field is mandatory and no special character allowed",
+            pattern:"^[A-Za-z]*$"
         },
         {
             id: 3,
@@ -65,6 +71,9 @@ function RegistrationPage() {
             name: "lastName",
             placeholder: "Last Name",
             label: "Last Name",
+            required:true,
+            errorMessage:"This field is mandatory and no special character allowed",
+            pattern:"^[A-Za-z]*$"
         },
         {
             id: 4,
@@ -72,27 +81,39 @@ function RegistrationPage() {
             name: "email",
             placeholder: "Email",
             label: "Email",
+            required:true,
+            errorMessage:"please enter a valid email",
+            pattern:"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
         },
         {
             id: 5,
             type: "text",
             name: "contactNumber",
             placeholder: "Contact No.",
-            label: "Contact No."
+            label: "Contact No.",
+            required:true,
+            errorMessage:"Enter a valid 10 digit phone number",
+            pattern:"[0-9]{10}"
         },
         {
             id: 6,
             type: "text",
             name: "roles",
             placeholder: "Roles",
-            label: "Roles"
+            label: "Roles",
+            required:true,
+            errorMessage:"It is mandatory and can contain only 'user' and 'admin'",
+            pattern:"^(user|admin|user admin|admin user)+$"
         },
         {
             id: 7,
             type: "password",
             name: "password",
             placeholder: "Passsword",
-            label: "Password"
+            label: "Password",
+            required:true,
+            errorMessage:"7 to 15 characters which contain at least one numeric digit and a special character",
+            pattern:"^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$"
         }
     ]
     return (

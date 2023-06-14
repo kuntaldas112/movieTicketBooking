@@ -17,7 +17,7 @@ function BookingForm() {
    const [bookResponse,setBookResponse]=useState({});
    const [bookObj,setBookObj]=useState(
        {
-        loginId:JSON.parse(localStorage.getItem('userInfo')).username,
+        loginId:JSON.parse(localStorage.getItem('userInfo'))?.username,
         movieName:state?.movieName,
         theatreName:state?.theatreName,
         noOfTickets:"",
@@ -57,6 +57,7 @@ function BookingForm() {
         name:"noOfTickets",
         placeholder:"noOfTickets",
         label:"noOfTickets",
+        errorMessage:"It is mandatory",
         required:true,
         autoFocus:true
        },
@@ -65,21 +66,23 @@ function BookingForm() {
         type:"text" ,
         name:"seatNumber",
         placeholder:"seatNumber",
+        errorMessage:"It should contain only 'numbers' and 'space'",
         label:"Seat Numbers",
+        pattern:"^([0-9 ])+$",
         required:true
        }
    ]
 const submitHandler=(e)=>{
     e.preventDefault();
    
-    let values=bookObj['seatNumber'].split(",")
+    let values=bookObj['seatNumber'].split(" ")
     bookObj['seatNumber']=[...values]
 
     fetch(`http://localhost:8081/api/v1.0/moviebooking/${bookObj.movieName}/book`,{
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization":`Bearer ${JSON.parse(localStorage.getItem('userInfo')).accessToken}`,
+            "Authorization":`Bearer ${JSON.parse(localStorage.getItem('userInfo'))?.accessToken}`,
           },
         body: JSON.stringify(bookObj)
     })
@@ -87,7 +90,7 @@ const submitHandler=(e)=>{
     .then(response=>{
         setBookResponse(response)}).catch(e=>console.log(e))
         setBookObj({
-          loginId:JSON.parse(localStorage.getItem('userInfo')).username,
+          loginId:JSON.parse(localStorage.getItem('userInfo'))?.username,
           movieName:state?.movieName,
           theatreName:state?.theatreName,
           noOfTickets:"",
@@ -115,6 +118,7 @@ const changeHandler=(e)=>{
                         onChange={(e)=>changeHandler(e)}/>
                })
            }
+           {/* <input type="text" pattern="^[\d, ]+|\d+$" /> */}
            <button type="submit" className='btn btn-primary'>BookTicket</button>
        </form>
        {bookResponse.message?.length>=1&&
