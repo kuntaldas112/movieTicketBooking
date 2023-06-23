@@ -4,6 +4,7 @@ import { LOGGED_IN_ADMIN, LOGGED_IN_USER, userContext } from '../AppContext';
 import Backdrop from '../component/Backdrop';
 import FormInput from '../component/FormInput';
 import PopUp from '../component/modal/PopUp';
+import { API_URL } from '../constants';
 
 export default function LoginPage() {
   const{state}=useLocation();
@@ -53,7 +54,7 @@ export default function LoginPage() {
       body:JSON.stringify(loginObj)
     }
    
-fetch("http://localhost:8081/api/v1.0/moviebooking/login",requestOptions)
+fetch(`${API_URL}/api/v1.0/moviebooking/login`,requestOptions)
 .then(res=>res.json())
 .then(token=>{
   if(token.error){
@@ -76,29 +77,6 @@ fetch("http://localhost:8081/api/v1.0/moviebooking/login",requestOptions)
       <div className="container form_container">
         <form className="form" onSubmit={formSubmit}>
           {stateMessage!=="" && <h6 style={{color:"red"}}>{stateMessage}</h6>}
-          {/* <div className="inputContainer">
-            <label htmlFor="username">Username</label>
-            <input
-             type="text"
-              name="username" 
-              id="username" 
-              value={username}
-              onChange={e=>setUsername(e.target.value)}
-              required
-              autoFocus
-              />
-          </div>
-          <div className="inputContainer">
-            <label htmlFor="password">Password</label>
-            <input
-             type="password"
-              name="password"
-               id="password"
-               value={password}
-               onChange={e=>setPassword(e.target.value)}
-               required
-                />
-          </div> */}
           {
             loginInputs.map(input=>{
 
@@ -108,7 +86,7 @@ fetch("http://localhost:8081/api/v1.0/moviebooking/login",requestOptions)
                             onChange={(e)=>changeHandler(e)}/>
             })
           }
-          <button className='loginBtn' >Login</button>
+          <button className='loginBtn btn btn-primary' >Login</button>
         </form>
         {
           responseMessage?.length>=1&&

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Backdrop from '../component/Backdrop';
 import FormInput from '../component/FormInput'
 import PopUp from '../component/modal/PopUp';
-
+import { API_URL } from '../constants';
 function RegistrationPage() {
     const [regResponse, setRegResponse] = useState({});
     const [regObj, setRegObj] = useState({
@@ -20,7 +20,7 @@ function RegistrationPage() {
         let roles = regObj['roles'].split(" ")
         regObj['roles'] = [...roles]
 
-        fetch(`http://localhost:8081/api/v1.0/moviebooking/register`, {
+        fetch(`${API_URL}/api/v1.0/moviebooking/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -129,7 +129,7 @@ function RegistrationPage() {
                         />
                     })
                 }
-                <button type="submit">register</button>
+                <button type="submit" className='btn btn-primary'>register</button>
             </form>
             {
                 regResponse.message?.length>=1 &&

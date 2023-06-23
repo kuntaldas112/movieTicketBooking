@@ -3,6 +3,7 @@ import React from 'react'
 import { useContext ,useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { userContext } from '../AppContext';
+import { API_URL } from '../constants';
 
 
 function MovieCard(props) {
@@ -11,7 +12,7 @@ function MovieCard(props) {
   const {state}=useContext(userContext);
   const [deleteMessage,setDeleteMessage]=useState("");
   const deleteMovieHandler=async(movieName)=>{
-   const response=await fetch(`http://localhost:8081/api/v1.0/moviebooking/${movieName}/delete`,{
+   const response=await fetch(`${API_URL}/api/v1.0/moviebooking/${movieName}/delete`,{
       method:"DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -26,11 +27,11 @@ function MovieCard(props) {
       <div className="card min" >
         <div className="card-body">
           <h4 className="card-title text-primary">{movieName.toUpperCase()}</h4>
-          <h6 className="card-subtitle mb-2 text-body-secondary">{ticketsStatus}</h6>
+          {/* <h6 className="card-subtitle mb-2 text-body-secondary">{ticketsStatus}</h6> */}
           <div className="card-text my-4">{noOfTicketsAvailable>0 ?
           <>
            Hey,the movie <b>{movieName}</b> 
-           is running at <b>{theatreName}</b>.
+          &nbsp; is running at <b>{theatreName}</b>.
             Hurry up! <b>{noOfTicketsAvailable}</b> Tickets available.
           </>:
           <b className='text-danger'>

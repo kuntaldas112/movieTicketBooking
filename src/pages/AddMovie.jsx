@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import Backdrop from '../component/Backdrop';
 import FormInput from '../component/FormInput'
 import PopUp from '../component/modal/PopUp';
-
+import { API_URL } from '../constants';
 function AddMovie() {
     const [addResponse,setAddResponse]=useState({});
     const [movieObj,setMovieObj]=useState(
@@ -21,7 +21,8 @@ function AddMovie() {
          placeholder:"Movie name",
          label:"Movie name",
          required:true,
-         errorMessage:"Please enter movie name!"
+         errorMessage:"Please enter movie name!",
+         autoFocus:true
         },
         {
          id:2,
@@ -54,7 +55,7 @@ function AddMovie() {
     }
     const submitHandler=async(e)=>{
         e.preventDefault();
-        const response=await fetch("http://localhost:8081/api/v1.0/moviebooking/addmovie",
+        const response=await fetch(`${API_URL}/api/v1.0/moviebooking/addmovie`,
                                     {
                                         method:"POST",
                                         headers: {
@@ -89,7 +90,12 @@ function AddMovie() {
         {
             addResponse.message?.length>0&& 
             <Backdrop>
-                <PopUp message={addResponse.message} color={`${addResponse.status==="Success"?"green":"red"}`} closeHandler={()=>setAddResponse({})}></PopUp>
+                <PopUp message={addResponse.message} color={`${addResponse.status==="Success"?"green":"red"}`} 
+                closeHandler={()=>{
+                    setAddResponse({});
+                    window.location.reload();
+                    }}>
+                </PopUp>
             </Backdrop>
         }
     </div>

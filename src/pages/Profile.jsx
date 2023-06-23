@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Backdrop from '../component/Backdrop';
+import { API_URL } from '../constants';
 
 function Profile() {
     const [user, setUser] = useState({});
@@ -20,7 +21,7 @@ function Profile() {
     const resetPasswordHandler = (e) => {
         e.preventDefault();
         if (e.target.value === "reset") {
-            fetch(`http://localhost:8081/api/v1.0/moviebooking/${user.username}/forgot`, {
+            fetch(`${API_URL}/api/v1.0/moviebooking/${user.username}/forgot`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -30,11 +31,10 @@ function Profile() {
             }).then(res => res.json()).then(data => {
               
 
-                console.log("inside response",data)
                 setShouldOpenModal(prev => !prev)
                 setErrorMessage(data.error)
             }).catch(e=>{
-                console.log("inside  catch" ,e)
+                console.log(e)
             })
 
         }
@@ -44,15 +44,14 @@ function Profile() {
     }
     const changeHandler = (e) => {
         setResetPassObj({ ...resetPassObj, [e.target.name]: e.target.value })
-        console.log(resetPassObj)
     }
 
     return (
         <div className="container form_container">
             {user && 
-            <div class=" d-flex justify-content-center align-items-center form">
-             <div class="card">
-              <div class="mt-5 text-center d-flex flex-column profileCardFieldContainer">
+            <div className=" d-flex justify-content-center align-items-center form">
+             <div className="card">
+              <div className="mt-5 text-center d-flex flex-column profileCardFieldContainer p-2">
                 <div>
                 <label >User Id: </label>
                 <span>{user.username}</span>
@@ -63,16 +62,16 @@ function Profile() {
                 </div>
 
 
-                        <div class="stats">
+                        <div className="stats">
                     <label>Role: </label>    
                 {
-                    user.roles?.length >= 1 && user.roles.map(role =>
+                    user.roles?.length >= 1 && user.roles.map((role,index) =>
                         
-                    <span className="rounded p-1" style={{backgroundColor: "#e5e1e1"}}>{role}</span>
+                    <span key={index} className="rounded p-1" style={{backgroundColor: "#e5e1e1"}}>{role}</span>
                     )
                 }
                 </div>
-                <button class="btn btn-primary btn-sm follow" onClick={modalHandler}>Reset Password</button>
+                <button className="btn btn-primary btn-sm follow" onClick={modalHandler}>Reset Password</button>
 
                   
                 

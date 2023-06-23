@@ -3,7 +3,7 @@ import {useLocation, useNavigate}from 'react-router-dom'
 import Backdrop from '../component/Backdrop';
 import FormInput from '../component/FormInput';
 import PopUp from '../component/modal/PopUp';
-
+import { API_URL } from '../constants';
 function BookingForm() {
    const{state}=useLocation();
    const navigate=useNavigate();
@@ -78,7 +78,7 @@ const submitHandler=(e)=>{
     let values=bookObj['seatNumber'].split(" ")
     bookObj['seatNumber']=[...values]
 
-    fetch(`http://localhost:8081/api/v1.0/moviebooking/${bookObj.movieName}/book`,{
+    fetch(`${API_URL}/api/v1.0/moviebooking/${bookObj.movieName}/book`,{
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -118,16 +118,13 @@ const changeHandler=(e)=>{
                         onChange={(e)=>changeHandler(e)}/>
                })
            }
-           {/* <input type="text" pattern="^[\d, ]+|\d+$" /> */}
            <button type="submit" className='btn btn-primary'>BookTicket</button>
        </form>
        {bookResponse.message?.length>=1&&
        <Backdrop>
          <PopUp color={`${bookResponse.status==="Success"?"green":"red"}`} message={bookResponse.message} closeHandler={()=>setBookResponse({})}></PopUp>
        </Backdrop>
-        // <div className="" style={{color:`${bookResponse.status==="Success"?"green":"red"}`}}>{bookResponse.message}</div>
       }
-     { console.log(bookResponse)}
     </div>
   )
 }

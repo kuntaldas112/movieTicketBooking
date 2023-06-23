@@ -54,6 +54,22 @@
   height: 50%;
   
 }
+.searchDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.searchDiv>input{
+  margin: 0 0 0 5px;
+}
+@media only screen and (max-width : 991.5px) {
+  .searchDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
 .form_container{
   height: 90vh;
   display: flex;
