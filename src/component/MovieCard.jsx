@@ -4,13 +4,15 @@ import { useContext ,useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { userContext } from '../AppContext';
 import { API_URL } from '../constants';
+import Backdrop from './Backdrop';
+import PopUp from './modal/PopUp';
 
 
 function MovieCard(props) {
-  const { movieName, noOfTicketsAvailable, ticketsStatus, theatreName } = props;
+  const { movieName, noOfTicketsAvailable, ticketsStatus, theatreName,fetchMovies } = props;
   const navigate = useNavigate();
   const {state}=useContext(userContext);
-  const [deleteMessage,setDeleteMessage]=useState("");
+  const [deleteMessage,setDeleteMessage]=useState({});
   const deleteMovieHandler=async(movieName)=>{
    const response=await fetch(`${API_URL}/api/v1.0/moviebooking/${movieName}/delete`,{
       method:"DELETE",
@@ -20,7 +22,7 @@ function MovieCard(props) {
       }
     });
     const data=await response.json();
-    setDeleteMessage(data.message)
+    setDeleteMessage(data)
   }
   return (
     <div className='m-2 movieCard'>
@@ -51,7 +53,17 @@ function MovieCard(props) {
         </div>
       </div>
     </div>
-    {deleteMessage.length>=1&& <p>{deleteMessage}</p>}
+    {deleteMessage.message?.length>=1&& 
+    <Backdrop>
+    <PopUp color={`${deleteMessage.status==="Success"?"green":"red"}`} message={deleteMessage.message}
+     closeHandler={
+       ()=>{
+         setDeleteMessage({})
+         fetchMovies();
+    }}
+     ></PopUp>
+  </Backdrop>
+    }
     </div>
   )
 }
