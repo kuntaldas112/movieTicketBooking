@@ -44,6 +44,7 @@
   width: 30%;
   min-width: 280px;
   min-height: 200px;
+  z-index: 1;
 }
 .form{
   display:flex;
